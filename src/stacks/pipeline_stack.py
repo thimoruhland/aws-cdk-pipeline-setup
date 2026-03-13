@@ -16,10 +16,11 @@ class PipelineStack(Stack):
                 input=pipelines.CodePipelineSource.connection(
                     "thimoruhland/aws-cdk-pipeline-setup",
                     "main",
-                    connection_arn="arn:aws:codeconnections:eu-central-1:735910967196:connection/47dc864b-e5a7-4f37-ac09-54d70e37c623",
+                    connection_arn="arn:aws:codeconnections:eu-central-1:735910967196:connection/6e7a13bc-e807-4c94-9f5a-c46681d94a1a",
                 ),
                 commands=[
-                    "python -m pip install -r requirements.txt",
+                    "python -m pip install --upgrade pip",
+                    "pip install -r requirements.txt",
                     "npm install -g aws-cdk",
                     "cdk synth",
                 ],
