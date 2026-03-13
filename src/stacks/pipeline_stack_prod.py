@@ -34,7 +34,7 @@ class ProdPipelineStack(Stack):
                     repo_string,
                     pipeline_cfg["branch"],
                     connection_arn=connection_arn,
-                    trigger_on_push=False,
+                    trigger_on_push=True,
                 ),
                 commands=[
                     "python -m pip install -r requirements.txt",
