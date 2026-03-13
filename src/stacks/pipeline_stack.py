@@ -11,6 +11,7 @@ class PipelineStack(Stack):
         pipeline = pipelines.CodePipeline(
             self,
             "CdkPipeline",
+            pipeline_name="aws-cdk-pipeline-setup-dev",
             synth=pipelines.ShellStep(
                 "Synth",
                 input=pipelines.CodePipelineSource.connection(
