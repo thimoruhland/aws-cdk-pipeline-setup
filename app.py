@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 import aws_cdk as cdk
 from src.stacks.pipeline_stack_dev import DevPipelineStack
+from src.stacks.pipeline_stack_prod import ProdPipelineStack
 
 app = cdk.App()
 
@@ -21,6 +22,19 @@ DevPipelineStack(
     env=cdk.Environment(
         account=pipelines_cfg["dev"]["account"],
         region=pipelines_cfg["dev"]["region"],
+    ),
+)
+
+ProdPipelineStack(
+    app,
+    f"{project_slug}-prod-pipeline",
+    project_slug=project_slug,
+    repo_string=repo_string,
+    connection_arn=connection_arn,
+    pipeline_cfg=pipelines_cfg["prod"],
+    env=cdk.Environment(
+        account=pipelines_cfg["prod"]["account"],
+        region=pipelines_cfg["prod"]["region"],
     ),
 )
 

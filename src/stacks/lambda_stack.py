@@ -16,8 +16,8 @@ class LambdaStack(Stack):
 
         _lambda.Function(
             self,
-            "GeneratorLambda",
-            function_name=f"{project_slug}-{stage_name.lower()}-GeneratorLambda",
+            f"TR-{project_slug}-GeneratorLambda",
+            function_name=f"TR-{project_slug}-GeneratorLambda-{stage_name.lower()}",
             runtime=_lambda.Runtime.PYTHON_3_12,
             handler="lambda_function.lambda_handler",
             code=_lambda.Code.from_asset("src/lambdas/generator_lambda/src"),
