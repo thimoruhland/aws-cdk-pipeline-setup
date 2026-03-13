@@ -11,6 +11,7 @@ class ProdPipelineStack(Stack):
         scope: Construct,
         construct_id: str,
         *,
+        project_name: str,
         project_slug: str,
         repo_string: str,
         connection_arn: str,
@@ -24,24 +25,68 @@ class ProdPipelineStack(Stack):
             region=pipeline_cfg["region"],
         )
 
+        source = pipelines.CodePipelineSource.connection(
+            repo_string,
+            pipeline_cfg["branch"],
+            connection_arn=connection_arn,
+            trigger_on_push=True,
+        )
+
         pipeline = pipelines.CodePipeline(
             self,
-            f"{project_slug}-prod-pipeline",
+            f"{project_slug}-prod-pipeline-construct",
             pipeline_name=f"{project_slug}-prod-pipeline",
             synth=pipelines.ShellStep(
                 "Synth",
-                input=pipelines.CodePipelineSource.connection(
-                    repo_string,
-                    pipeline_cfg["branch"],
-                    connection_arn=connection_arn,
-                    trigger_on_push=True,
-                ),
-                commands=[
+                input=source,
+                install_commands=[
                     "python -m pip install -r requirements.txt",
+                    "python -m pip install -r requirements-dev.txt",
                     "npm install -g aws-cdk",
+                ],
+                commands=[
                     "cdk synth",
                 ],
             ),
+        )
+
+        pipeline.add_wave(
+            "QualityChecks",
+            pre=[
+                pipelines.ShellStep(
+                    "RuffCheck",
+                    input=source,
+                    install_commands=[
+                        "python -m pip install -r requirements.txt",
+                        "python -m pip install -r requirements-dev.txt",
+                    ],
+                    commands=[
+                        "ruff check src",
+                    ],
+                ),
+                pipelines.ShellStep(
+                    "MypyCheck",
+                    input=source,
+                    install_commands=[
+                        "python -m pip install -r requirements.txt",
+                        "python -m pip install -r requirements-dev.txt",
+                    ],
+                    commands=[
+                        "mypy src",
+                    ],
+                ),
+                pipelines.ShellStep(
+                    "Pytest",
+                    input=source,
+                    install_commands=[
+                        "python -m pip install -r requirements.txt",
+                        "python -m pip install -r requirements-dev.txt",
+                    ],
+                    commands=[
+                        "pytest",
+                    ],
+                ),
+            ],
         )
 
         pipeline.add_stage(

@@ -1,4 +1,4 @@
-import aws_cdk as cdk
+
 from aws_cdk import Stack, aws_lambda as _lambda
 from constructs import Construct
 
