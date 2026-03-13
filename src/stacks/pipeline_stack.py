@@ -20,7 +20,6 @@ class PipelineStack(Stack):
                     connection_arn="arn:aws:codeconnections:eu-central-1:735910967196:connection/6e7a13bc-e807-4c94-9f5a-c46681d94a1a",
                 ),
                 commands=[
-                    "python -m pip install --upgrade pip",
                     "pip install -r requirements.txt",
                     "npm install -g aws-cdk",
                     "cdk synth",
