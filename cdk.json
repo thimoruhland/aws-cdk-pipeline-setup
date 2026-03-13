@@ -15,6 +15,22 @@
     ]
   },
   "context": {
+    "project_name": "Project Github Setup",
+    "project_slug": "project-github-setup",
+    "repo_string": "thimoruhland/aws-cdk-pipeline-setup",
+    "connection_arn": "arn:aws:codeconnections:eu-central-1:735910967196:connection/6e7a13bc-e807-4c94-9f5a-c46681d94a1a",
+    "pipelines": {
+      "dev": {
+        "branch": "develop",
+        "account": "735910967196",
+        "region": "eu-central-1"
+      },
+      "prod": {
+        "branch": "main",
+        "account": "735910967196",
+        "region": "eu-central-1"
+        }
+      },
     "@aws-cdk/aws-signer:signingProfileNamePassedToCfn": true,
     "@aws-cdk/aws-ecs-patterns:secGroupsDisablesImplicitOpenListener": true,
     "@aws-cdk/aws-lambda:recognizeLayerVersion": true,
