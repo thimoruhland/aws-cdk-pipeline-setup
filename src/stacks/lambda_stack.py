@@ -9,7 +9,6 @@ class LambdaStack(Stack):
         scope: Construct,
         construct_id: str,
         stage_name: str,
-        project_name: str,
         project_slug: str,
         **kwargs
     ):
