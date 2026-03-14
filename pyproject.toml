@@ -6,7 +6,7 @@ authors = [
     {name = "Thimo Ruhland"}
 ]
 readme = "README.md"
-requires-python = ">=3.14"
+requires-python = ">=3.11"
 dependencies = [
     "mypy (>=1.19.1,<2.0.0)"
 ]
@@ -22,7 +22,7 @@ packages = [
 ]
 
 [tool.poetry.dependencies]
-python = ">=3.14"
+python = ">=3.11"
 aws-cdk-lib = "^2.0.0"   # example; add what you need
 
 [tool.poetry.dev-dependencies]
