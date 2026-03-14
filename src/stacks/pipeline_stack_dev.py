@@ -6,7 +6,6 @@ from src.stages.application_stage import ApplicationStage
 
 
 class DevPipelineStack(Stack):
-
     def __init__(
         self,
         scope: Construct,
@@ -26,25 +25,70 @@ class DevPipelineStack(Stack):
             region=pipeline_cfg["region"],
         )
 
+        source = pipelines.CodePipelineSource.connection(
+            repo_string,
+            pipeline_cfg["branch"],
+            connection_arn=connection_arn,
+            trigger_on_push=True,
+        )
+
         pipeline = pipelines.CodePipeline(
             self,
             f"{project_slug}-dev-pipeline",
             pipeline_name=f"{project_slug}-dev-pipeline",
-
             synth=pipelines.ShellStep(
                 "Synth",
-                input=pipelines.CodePipelineSource.connection(
-                    repo_string,
-                    pipeline_cfg["branch"],
-                    connection_arn=connection_arn,
-                ),
-
-                commands=[
+                input=source,
+                install_commands=[
                     "python -m pip install -r requirements.txt",
+                    "python -m pip install -r requirements-dev.txt",
+                    "python -m pip install -e .", 
                     "npm install -g aws-cdk",
-                    "cdk synth"
+                ],
+                commands=[
+                    "cdk synth",
                 ],
             ),
+        )
+
+        pipeline.add_wave(
+            "QualityChecks",
+            pre=[
+                pipelines.ShellStep(
+                    "RuffCheck",
+                    input=source,
+                    install_commands=[
+                        "python -m pip install -r requirements.txt",
+                        "python -m pip install -r requirements-dev.txt",
+                    ],
+                    commands=[
+                        "ruff check src",
+                    ],
+                ),
+                pipelines.ShellStep(
+                    "MypyCheck",
+                    input=source,
+                    install_commands=[
+                        "python -m pip install -r requirements.txt",
+                        "python -m pip install -r requirements-dev.txt",
+                    ],
+                    commands=[
+                        "mypy src",
+                    ],
+                ),
+                pipelines.ShellStep(
+                    "Pytest",
+                    input=source,
+                    install_commands=[
+                        "python -m pip install -r requirements.txt",
+                        "python -m pip install -r requirements-dev.txt",
+                        "python -m pip install -e .", 
+                    ],
+                    commands=[
+                        'pytest || rc=$?; if [ "$rc" = "5" ]; then echo "No tests collected, continuing"; exit 0; else exit "$rc"; fi',
+                    ]
+                ),
+            ],
         )
 
         pipeline.add_stage(

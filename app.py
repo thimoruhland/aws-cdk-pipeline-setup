@@ -28,6 +28,7 @@ DevPipelineStack(
 ProdPipelineStack(
     app,
     f"{project_slug}-prod-pipeline",
+    project_name=project_name,
     project_slug=project_slug,
     repo_string=repo_string,
     connection_arn=connection_arn,
