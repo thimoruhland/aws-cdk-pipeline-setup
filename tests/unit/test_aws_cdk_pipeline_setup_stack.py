@@ -13,8 +13,8 @@ def test_stack_synthesizes():
         repo_string="test/repo",
         connection_arn="arn:aws:codestar-connections:us-east-1:123456789012:connection/test-connection",
         pipeline_cfg={
-            "account": "123456789012",
-            "region": "us-east-1",
+            "account": "735910967196",
+            "region": "us-central-1",
             "branch": "devlop"
         }
     )
