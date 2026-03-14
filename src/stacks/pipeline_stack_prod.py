@@ -34,7 +34,7 @@ class ProdPipelineStack(Stack):
 
         pipeline = pipelines.CodePipeline(
             self,
-            f"{project_slug}-prod-pipeline-construct",
+            f"{project_slug}-prod-pipeline",
             pipeline_name=f"{project_slug}-prod-pipeline",
             synth=pipelines.ShellStep(
                 "Synth",
