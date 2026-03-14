@@ -18,7 +18,7 @@ description = "First Project in Github CloudConnection"
 authors = ["Thimo Ruhland"]
 
 packages = [
-    { include = "aws_cdk_pipeline_setup", from = "." }
+    {include = "src/*"}
 ]
 
 [tool.poetry.dependencies]

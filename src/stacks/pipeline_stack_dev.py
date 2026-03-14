@@ -42,6 +42,7 @@ class DevPipelineStack(Stack):
                 install_commands=[
                     "python -m pip install -r requirements.txt",
                     "python -m pip install -r requirements-dev.txt",
+                    "python -m pip install -e .", 
                     "npm install -g aws-cdk",
                 ],
                 commands=[
@@ -81,6 +82,7 @@ class DevPipelineStack(Stack):
                     install_commands=[
                         "python -m pip install -r requirements.txt",
                         "python -m pip install -r requirements-dev.txt",
+                        "python -m pip install -e .", 
                     ],
                     commands=[
                         "pytest",

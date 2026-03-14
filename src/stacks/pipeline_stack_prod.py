@@ -43,6 +43,7 @@ class ProdPipelineStack(Stack):
                     "python -m pip install -r requirements.txt",
                     "python -m pip install -r requirements-dev.txt",
                     "npm install -g aws-cdk",
+                    "python -m pip install -e .", 
                 ],
                 commands=[
                     "cdk synth",
@@ -81,6 +82,7 @@ class ProdPipelineStack(Stack):
                     install_commands=[
                         "python -m pip install -r requirements.txt",
                         "python -m pip install -r requirements-dev.txt",
+                        "python -m pip install -e .", 
                     ],
                     commands=[
                         "pytest",
