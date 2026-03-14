@@ -11,13 +11,25 @@ dependencies = [
     "mypy (>=1.19.1,<2.0.0)"
 ]
 
+[tool.poetry]
+name = "aws-cdk-pipeline-setup"
+version = "0.1.0"
+description = "First Project in Github CloudConnection"
+authors = ["Thimo Ruhland"]
+
+packages = [
+    { include = "aws_cdk_pipeline_setup", from = "." }
+]
+
+[tool.poetry.dependencies]
+python = ">=3.14"
+aws-cdk-lib = "^2.0.0"   # example; add what you need
+
+[tool.poetry.dev-dependencies]
+mypy = ">=1.19.1,<2.0.0"
+pytest = ">=9.0.2,<10.0.0"
+ruff = ">=0.15.6,<0.16.0"
 
 [build-system]
 requires = ["poetry-core>=2.0.0,<3.0.0"]
 build-backend = "poetry.core.masonry.api"
-
-[dependency-groups]
-dev = [
-    "pytest (>=9.0.2,<10.0.0)",
-    "ruff (>=0.15.6,<0.16.0)"
-]
