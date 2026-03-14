@@ -1,0 +1,23 @@
+[project]
+name = "aws-cdk-pipeline-setup"
+version = "0.1.0"
+description = "First Project in Github CloudConnection"
+authors = [
+    {name = "Thimo Ruhland"}
+]
+readme = "README.md"
+requires-python = ">=3.14"
+dependencies = [
+    "mypy (>=1.19.1,<2.0.0)"
+]
+
+
+[build-system]
+requires = ["poetry-core>=2.0.0,<3.0.0"]
+build-backend = "poetry.core.masonry.api"
+
+[dependency-groups]
+dev = [
+    "pytest (>=9.0.2,<10.0.0)",
+    "ruff (>=0.15.6,<0.16.0)"
+]
