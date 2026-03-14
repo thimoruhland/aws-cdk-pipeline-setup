@@ -1,16 +1,10 @@
 import aws_cdk as core
 import aws_cdk.assertions as assertions
 
-from aws_cdk_pipeline_setup.aws_cdk_pipeline_setup_stack import AwsCdkPipelineSetupStack # type: ignore
+from src.stacks.pipeline_stack_dev import DevPipelineStack
 
-# example tests. To run these tests, uncomment this file along with the example
-# resource in aws_cdk_pipeline_setup/aws_cdk_pipeline_setup_stack.py
-def test_sqs_queue_created():
+def test_stack_synthesizes():
     app = core.App()
-    stack = AwsCdkPipelineSetupStack(app, "aws-cdk-pipeline-setup")
+    stack = DevPipelineStack(app, "DevPipelineStack")
     template = assertions.Template.from_stack(stack)
     print(template.to_json())
-
-#     template.has_resource_properties("AWS::SQS::Queue", {
-#         "VisibilityTimeout": 300
-#     })
