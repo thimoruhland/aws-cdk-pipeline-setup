@@ -85,8 +85,8 @@ class DevPipelineStack(Stack):
                         "python -m pip install -e .", 
                     ],
                     commands=[
-                        "pytest",
-                    ],
+                        'pytest || rc=$?; if [ "$rc" = "5" ]; then echo "No tests collected, continuing"; exit 0; else exit "$rc"; fi',
+                    ]
                 ),
             ],
         )
